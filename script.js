@@ -1,47 +1,56 @@
-let left = document.querySelector(".contener .content .left");
-let right = document.querySelector(".contener .content .right");
-let open_sound = new Audio("./mixkit-scary-wooden-door-opening-190.wav");
-let button = left.parentElement;
+const doorLeft = document.querySelector(".door-left");
+const doorRight = document.querySelector(".door-right");
+const openSound = new Audio("./mixkit-scary-wooden-door-opening-190.wav");
+const ramadanAudio = new Audio("./ramadan.m4a");
+const container = document.getElementById("main-container");
 
-// Define a variable to track whether the audio is currently playing
 let isAudioPlaying = false;
 
-button.onclick = ( ) => {
-  // If the audio is already playing, don't do anything
-  if (isAudioPlaying) {
-    return;
-  }
-  
-  let audio = new Audio('./ramadan.m4a');
-  if(left.classList.contains("openl") && right.classList.contains("openr")){
-    left.classList.add("closel");
-    right.classList.add("closer");
-    left.classList.remove("openl");
-    right.classList.remove("openr");
-  }
-  else{
-    left.classList.remove("closel");
-    right.classList.remove("closer");
-    left.classList.add("openl");
-    right.classList.add("openr");
-    audio.play();
+container.onclick = () => {
+  if (isAudioPlaying) return;
+
+  if (doorLeft.classList.contains("open-left")) {
+    // Close doors
+    doorLeft.classList.remove("open-left");
+    doorRight.classList.remove("open-right");
+  } else {
+    // Open doors
+    doorLeft.classList.add("open-left");
+    doorRight.classList.add("open-right");
+
+    ramadanAudio.play();
+    setTimeout(() => {
+      openSound.play();
+    }, 500);
   }
 
-  // Set isAudioPlaying to true while the audio is playing
   isAudioPlaying = true;
-  
-  // Play the opening sound effect after a short delay
-  setTimeout(() => {
-    open_sound.play();
-  }, 500);
-  
-  // Disable the click event listener on the button element
-  button.style.pointerEvents = "none";
-  
-  // Wait for the audio to finish playing
-  audio.onended = () => {
-    // Set isAudioPlaying to false and re-enable the click event listener on the button element
+  container.style.pointerEvents = "none";
+
+  ramadanAudio.onended = () => {
     isAudioPlaying = false;
-    button.style.pointerEvents = "auto";
+    container.style.pointerEvents = "auto";
   };
+
+  // Safe reset after 10s
+  setTimeout(() => {
+    isAudioPlaying = false;
+    container.style.pointerEvents = "auto";
+  }, 10000);
 };
+
+// Create floating lanterns
+function createLanterns() {
+  const wrapper = document.querySelector(".wraper");
+  for (let i = 0; i < 8; i++) {
+    const lantern = document.createElement("div");
+    lantern.className = "lantern";
+    lantern.style.left = Math.random() * 100 + "vw";
+    lantern.style.animationDelay = Math.random() * 15 + "s";
+    lantern.style.width = 20 + Math.random() * 30 + "px";
+    lantern.style.height = lantern.style.width;
+    wrapper.appendChild(lantern);
+  }
+}
+
+createLanterns();

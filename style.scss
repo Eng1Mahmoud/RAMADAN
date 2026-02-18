@@ -1,278 +1,301 @@
+:root {
+  --original-blue: rgb(14, 23, 46);
+  --deep-blue: rgb(4, 4, 29);
+  --accent-white: #ffffff;
+  --white-glow: rgba(255, 255, 255, 0.4);
+  --border-blue: rgb(2, 2, 31);
+  --glass-bg: rgba(14, 23, 46, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.15);
+}
+
 * {
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Amiri", serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
-    background-image:linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('./wp8999910-ramadan-mubarak-4k-wallpapers.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: repeat;
-    position: relative;
-    overflow:hidden;
+  background-color: var(--deep-blue);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(14, 23, 46, 0.4), var(--deep-blue)),
+    url("./wp8999910-ramadan-mubarak-4k-wallpapers.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
 
-    .wraper {
-        padding-top: 100px;
-        height: 100vh;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3)),url('./wp8999910-ramadan-mubarak-4k-wallpapers.jpg');
-        ;
-        background-position: center;
-        background-size: cover;
-        background-repeat: repeat;
-        position: relative;
-        width: 95%;
-        margin: auto;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, white, transparent),
+      radial-gradient(1px 1px at 30% 50%, white, transparent),
+      radial-gradient(2px 2px at 50% 20%, white, transparent),
+      radial-gradient(1px 1px at 70% 80%, white, transparent),
+      radial-gradient(2px 2px at 90% 40%, white, transparent);
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }
+}
 
-        img {
-            position: absolute;
-            z-index: 2;
-            width: 60px;
-            height: 120px;
-            transform-origin: top;
-            animation: rotate 4s ease-in-out infinite alternate-reverse;
-            transition: all 4s ease-in-out;
-            -webkit-transition: all 4s ease-in-out;
-            -moz-transition: all 4s ease-in-out;
-            -ms-transition: all 4s ease-in-out;
-            -o-transition: all 4s ease-in-out;
-            -webkit-animation: rotate 4s ease-in-out infinite alternate-reverse;
-        }
+.wraper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
 
-        .left {
-            top: 40px;
-            left: 0px;
-        }
+  .lamp {
+    position: absolute;
+    z-index: 50; // High in foreground
+    width: 70px;
+    height: auto;
+    transform-origin: top;
+    filter: drop-shadow(0 0 10px var(--white-glow));
+    animation: rotate 4s ease-in-out infinite alternate-reverse;
+    transition: all 0.5s ease;
 
-        .right {
-            top: 30px;
-            right: 0px;
-        }
-
+    &.left {
+      top: 5vh;
+      left: 10%;
     }
 
+    &.right {
+      top: 4vh;
+      right: 10%;
+    }
+  }
 }
 
 .contener {
-    z-index: 1;
-    height: calc(100vh - 200px);
-    width: 400px;
-    position: relative;
-    margin: auto;
-    border-bottom: 1px solid rgb(2, 2, 31);
-    border-bottom: 1px solid rgb(2, 2, 31);
-    cursor: pointer;
+  z-index: 10;
+  height: 60vh;
+  width: 90%;
+  max-width: 400px;
+  min-height: 400px;
+  max-height: 600px;
+  position: relative;
+  border-bottom: 2px solid var(--border-blue);
+  cursor: pointer;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 
-    .meesage {
+  .message {
+    background-image: url("./sk204.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transform: translateZ(-1px); // Minimal gap for alignment
+    transition: transform 1s ease;
+  }
 
-        background-image: url('./sk204.jpg');
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        height: 100%;
+  .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 5;
+    transform-style: preserve-3d;
 
+    .door-left,
+    .door-right {
+      overflow: hidden;
+      width: 50%;
+      height: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) inset;
+      border: 1px solid var(--border-blue);
+      transition: transform 2.5s cubic-bezier(0.34, 1.56, 0.64, 1); // Added a slight "amazing" bounce
+      position: relative;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
 
-    }
-
-    .content {
+      &::before {
+        content: "";
         position: absolute;
-        top: 0px;
-        right: 0px;
-        left: 0px;
-        bottom: 0px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://www.transparenttextures.com/patterns/islamic-art.png");
+        opacity: 0.1;
+        pointer-events: none;
+      }
+
+      &::after {
+        position: absolute;
+        content: "";
+        top: 45%;
+        width: 24px;
+        height: 24px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #ffffff,
+          var(--accent-white)
+        );
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--white-glow);
+        z-index: 10;
+      }
+
+      .window {
+        overflow: hidden;
         display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        position: relative;
 
-        .right {
-            position: relative;
-            top: 0px;
+        div {
+          position: relative;
+          height: 70%;
+          width: 60%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid var(--glass-border);
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+          border-radius: 4px;
 
-            &::after {
-                position: absolute;
-                content: "";
-                top: 45%;
-                left: -20px;
-                width: 40px;
-                height: 40px;
-                background-color: white;
-                border-radius: 50%;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                -ms-border-radius: 50%;
-                -o-border-radius: 50%;
-
-            }
+          &::after {
+            content: "";
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border: 1px solid var(--glass-border);
+            background: linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.1) 0%,
+              transparent 50%
+            );
+            pointer-events: none;
+          }
         }
-
-        .left {
-            position: relative;
-            top: 0px;
-
-            &::after {
-                position: absolute;
-                content: "";
-                top: 45%;
-                right: -20px;
-                width: 40px;
-                height: 40px;
-                background-color: white;
-                border-radius: 50%;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                -ms-border-radius: 50%;
-                -o-border-radius: 50%;
-
-            }
-        }
-
-        .left,
-        .right {
-            overflow: hidden;
-            width: calc(50%);
-            height: 100%;
-            background-color: rgb(14, 23, 46);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
-            border: 2px solid rgb(4, 4, 29);
-
-
-            .window {
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-                justify-content: center;
-                position: relative;
-                transform: perspective(300px);
-                -webkit-transform: perspective(300px);
-                -moz-transform: perspective(300px);
-                -ms-transform: perspective(300px);
-                -o-transform: perspective(300px);
-
-                div {
-                    position: relative;
-                    height: 80%;
-                    width: 70% !important;
-                    background-color: rgba(14, 23, 46, 0.71);
-                    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
-                    border-radius: 3px;
-                    -webkit-border-radius: 3px;
-                    -moz-border-radius: 3px;
-                    -ms-border-radius: 3px;
-                    -o-border-radius: 3px;
-
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        top: 7px;
-                        left: 0px;
-                        width: 70%;
-                        height: 80%;
-                        background-color: rgba(14, 23, 46, 0.2);
-
-                        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
-                        display: block;
-                        transform: translate(20%, calc(10%));
-                        -webkit-transform: translate(20%, calc(10%));
-                        -moz-transform: translate(20%, calc(10%));
-                        -ms-transform: translate(20%, calc(10%));
-                        -o-transform: translate(20%, calc(10%));
-                    }
-                }
-            }
-        }
-
-
-        .openl {
-
-            border-right: 1px solid rgba(255, 255, 255, 0.075);
-            transition: transform 5s ease-in-out;
-            -webkit-transition: transform 5s ease-in-out;
-            -moz-transition: transform 5s ease-in-out;
-            -ms-transition: transform 5s ease-in-out;
-            -o-transition: transform 5s ease-in-out;
-            transform: perspective(300) rotateY(85deg);
-            -webkit-transform: perspective(300) rotateY(85deg);
-            -moz-transform: perspective(300) rotateY(85deg);
-            -ms-transform: perspective(300) rotateY(85deg);
-            -o-transform: perspective(300) rotateY(85deg);
-            perspective-origin: left;
-            transform-origin: left;
-        }
-
-        .openr {
-
-            border-left: 1px solid rgba(255, 255, 255, 0.075);
-            transition: transform 5s ease-in-out;
-            -webkit-transition: transform 5s ease-in-out;
-            -moz-transition: transform 5s ease-in-out;
-            -ms-transition: transform 5s ease-in-out;
-            -o-transition: transform 5s ease-in-out;
-            transform: perspective(300) rotateY(-85deg);
-            -webkit-transform: perspective(300) rotateY(-85deg);
-            -moz-transform: perspective(300) rotateY(-85deg);
-            -ms-transform: perspective(300) rotateY(-85deg);
-            -o-transform: perspective(300) rotateY(-85deg);
-            perspective-origin: right;
-            transform-origin: right;
-        }
-
-        .closel {
-
-            border-right: 1px solid rgba(255, 255, 255, 0.075);
-            transition: transform 5s ease-in-out;
-            -webkit-transition: transform 5s ease-in-out;
-            -moz-transition: transform 5s ease-in-out;
-            -ms-transition: transform 5s ease-in-out;
-            -o-transition: transform 5s ease-in-out;
-            transform: perspective(300) rotateY(0deg);
-            -webkit-transform: perspective(300) rotateY(0deg);
-            -moz-transform: perspective(300) rotateY(0deg);
-            -ms-transform: perspective(300) rotateY(0deg);
-            -o-transform: perspective(300) rotateY(0deg);
-            perspective-origin: left;
-            transform-origin: left;
-        }
-
-        .closer {
-
-            border-right: 1px solid rgba(255, 255, 255, 0.075);
-            transition: transform 5s ease-in-out;
-            -webkit-transition: transform 5s ease-in-out;
-            -moz-transition: transform 5s ease-in-out;
-            -ms-transition: transform 5s ease-in-out;
-            -o-transition: transform 5s ease-in-out;
-            transform: perspective(300) rotateY(0deg);
-            -webkit-transform: perspective(300) rotateY(0deg);
-            -moz-transform: perspective(300) rotateY(0deg);
-            -ms-transform: perspective(300) rotateY(0deg);
-            -o-transform: perspective(300) rotateY(0deg);
-            perspective-origin: right;
-            transform-origin: right;
-        }
+      }
     }
+
+    .door-left {
+      transform-origin: left;
+      border-right: 1px solid var(--border-blue);
+      &::after {
+        right: -12px;
+      }
+    }
+
+    .door-right {
+      transform-origin: right;
+      border-left: 1px solid var(--border-blue);
+      &::after {
+        left: -12px;
+      }
+    }
+
+    .open-left {
+      transform: rotateY(-110deg);
+    }
+
+    .open-right {
+      transform: rotateY(110deg);
+    }
+  }
 }
 
-@media (max-width:576px) {
-    .contener {
-        width: 300px
+@media (max-width: 600px) {
+  .wraper .lamp {
+    width: 50px;
+    &.left {
+      left: 5%;
     }
+    &.right {
+      right: 5%;
+    }
+  }
+
+  .contener {
+    width: 85%;
+    height: 50vh;
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 400px) {
+  .contener {
+    width: 80%;
+    height: 45vh;
+    min-height: 320px;
+  }
+}
+
+.lantern {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url("./pngegg (1).png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(0 0 5px var(--white-glow)) grayscale(100%);
+  animation: float 15s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 110vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(100px, -10vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 
 @keyframes rotate {
-    0% {
-        transform: rotate(15deg);
-        -webkit-transform: rotate(15deg);
-        -moz-transform: rotate(15deg);
-        -ms-transform: rotate(15deg);
-        -o-transform: rotate(15deg);
-}
-
-    100% {
-        transform: rotate(-15deg);
-        -webkit-transform: rotate(-15deg);
-        -moz-transform: rotate(-15deg);
-        -ms-transform: rotate(-15deg);
-        -o-transform: rotate(-15deg);
-}
-
+  0% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
 }
