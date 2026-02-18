@@ -9,19 +9,28 @@ let isAudioPlaying = false;
 container.onclick = () => {
   if (isAudioPlaying) return;
 
-  if (doorLeft.classList.contains("open-left")) {
+  const isOpen = doorLeft.classList.contains("open-left");
+
+  if (isOpen) {
     // Close doors
     doorLeft.classList.remove("open-left");
     doorRight.classList.remove("open-right");
+    container.classList.remove("is-open");
+    document.body.classList.remove("is-open");
   } else {
     // Open doors
     doorLeft.classList.add("open-left");
     doorRight.classList.add("open-right");
+    container.classList.add("is-open");
+    document.body.classList.add("is-open");
 
+    // Play ramadan audio immediately (it usually has a slow start)
     ramadanAudio.play();
+
+    // Play door sound with a slight lag to match the visual start
     setTimeout(() => {
       openSound.play();
-    }, 500);
+    }, 200);
   }
 
   isAudioPlaying = true;
@@ -32,7 +41,7 @@ container.onclick = () => {
     container.style.pointerEvents = "auto";
   };
 
-  // Safe reset after 10s
+  // Safe reset after 10s if audio fails to end
   setTimeout(() => {
     isAudioPlaying = false;
     container.style.pointerEvents = "auto";

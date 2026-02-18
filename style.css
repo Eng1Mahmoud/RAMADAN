@@ -47,6 +47,26 @@ body::before {
   opacity: 0.3;
   z-index: 0;
   pointer-events: none;
+  transition: opacity 2s ease;
+}
+body.is-open::before {
+  opacity: 0.6;
+}
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.4) 100%);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 1.5s ease;
+  pointer-events: none;
+}
+body.is-open::after {
+  opacity: 1;
 }
 
 .wraper {
@@ -102,8 +122,13 @@ body::before {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transform: translateZ(-1px);
-  transition: transform 1s ease;
+  transform: translateZ(-1px) scale(0.95);
+  opacity: 0.3;
+  transition: transform 2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1.5s ease;
+}
+.contener.is-open .message {
+  transform: translateZ(-1px) scale(1);
+  opacity: 1;
 }
 .contener .content {
   position: absolute;
@@ -125,7 +150,7 @@ body::before {
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5) inset;
   border: 1px solid var(--border-blue);
-  transition: transform 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 2.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   transform-style: preserve-3d;
   backface-visibility: visible;
